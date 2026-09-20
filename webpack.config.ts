@@ -25,6 +25,10 @@ const config: webpack.Configuration = {
         port: 8080,
         open: true,
         hot: true,
+        watchFiles: [
+            './src/**/*.html',
+            './src/**/*.css',
+        ],
     },
 
     module: {
