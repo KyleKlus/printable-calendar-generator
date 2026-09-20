@@ -9,7 +9,70 @@
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <section id="generator" class="tool-section"></section>
+    <section id="generator" class="tool-section">
+        <div class="title">
+            <h1>Printable Calendar</h1>
+        </div>
+        <div class="card">
+            <h2>Color Options</h2>
+            <div>
+                <input type="color" id="color-0" value="#5A2328"/>
+                <input type="color" id="color-1" value="#ADF7B6"/>
+                <input type="color" id="color-2" value="#50808E"/>
+                <input type="color" id="color-3" value="#FFEE93"/>
+                <input type="color" id="color-4" value="#FF88DC"/>
+                <input type="color" id="color-5" value="#B4E1FF"/>
+                <input type="color" id="color-6" value="#79ADDC"/>
+                <input type="color" id="color-7" value="#06D6A0"/>
+                <input type="color" id="color-8" value="#FFC09F"/>
+                <input type="color" id="color-9" value="#AB87FF"/>
+                <input type="color" id="color-10" value="#ef3f3f"/>
+                <input type="color" id="color-11" value="#048A81 "/>
+            </div>
+            <h2>Layout Options</h2>
+            <div>
+                <input type="number" id="rows" min="1" max="50" value="5"/>
+                <label for="rows">Cells per day</label>
+            </div>
+            <br/>
+            <div>
+                <input type="number" id="columns" min="1" max="10" value="3"/>
+                <label for="columns">Columns</label>
+            </div>
+            <br/>
+            <div>
+                <input type="number" id="rows" min="1" max="10" value="1"/>
+                <label for="rows">Rows</label>
+            </div>
+            <h2>Content Options</h2>
+            <div>
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date"/>
+                <label for="end-date">End Date: </label>
+                <input type="date" id="end-date"/>
+            </div>
+            <br/>
+            <div>
+                <label for="show-cw">
+                    <input type="checkbox" id="show-cw"/>
+                    Show calendar weeks
+                </label>
+            </div>
+            <div>
+                <label for="color-weekends">
+                    <input type="checkbox" id="color-weekends"/>
+                    Color weekends
+                </label>
+            </div>
+            <hr>
+            <div class="button-bar">
+                <button id="generate" class="has-icon" disabled>
+                    <img src="./pencil-sparkles.svg" alt="pencil"/>
+                    Generate ...
+                </button>
+            </div>
+        </div>
+    </section>
     <section id="calendar-display" class="tool-section is-hidden"></section>
 </body>
 </html>
