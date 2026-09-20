@@ -1,0 +1,46 @@
+{
+	"name": "printable-calendar-generator",
+	"version": "1.0.0",
+	"description": "This is a small web app which can generate a yearly calendar based on the users wishes",
+	"keywords": [
+		"calendar",
+		"monthly",
+		"yearly",
+		"customizable",
+		"colorful"
+	],
+	"homepage": "https://github.com/KyleKlus/printable-calendar-generator#readme",
+	"bugs": {
+		"url": "https://github.com/KyleKlus/printable-calendar-generator/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/KyleKlus/printable-calendar-generator.git"
+	},
+	"license": "MIT",
+	"author": "Kyle Klus",
+	"main": "dist/main.js",
+	"type": "module",
+	"scripts": {
+		"dev": "webpack serve",
+		"build": "webpack"
+	},
+	"ts-node": {
+		"compilerOptions": {
+			"module": "commonjs"
+		}
+	},
+	"devDependencies": {
+		"@types/node": "^26.6.2",
+		"@types/webpack": "^5.28.5",
+		"@types/webpack-dev-server": "^4.7.1",
+		"copy-webpack-plugin": "^14.0.0",
+		"ts-loader": "^9.6.2",
+		"ts-node": "^10.9.2",
+		"tsx": "^4.23.15",
+		"typescript": "6.0.3",
+		"webpack": "^5.111.1",
+		"webpack-cli": "^7.2.3",
+		"webpack-dev-server": "^6.0.0"
+	}
+}
