@@ -8,7 +8,8 @@ body {
     padding: 0;
 }
 
-.is-hidden {
+#generator.is-hidden,
+#calendar-display.is-hidden {
     display: none;
 }
 
@@ -142,6 +143,37 @@ input {
         display: flex;
         justify-content: end;
         gap: 1rem;
+    }
+
+    .toggle-wrapper {
+        display: flex;
+
+        & button {
+            width: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:active {
+                box-shadow: 0 1.5px var(--button-border-color);
+            }
+
+            &[selected] {
+                --button-bg-l: 85%;
+                --button-bg-s: 40%;
+            }
+        }
+
+        & button:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
+        }
+
+        & button:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
     }
 }
 
