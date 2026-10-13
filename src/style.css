@@ -253,7 +253,7 @@ input {
 }
 
 .card {
-    --card-bg: #ddedf1;
+    --card-bg: #e1eef1;
     --card-fg: #181713;
     --card-sh: #7b7b7b;
 
@@ -291,7 +291,7 @@ input {
 */
 
 #generator {
-    --content-width: 800px;
+    --content-width: 550px;
     font-family: 'Itim', cursive;
     font-weight: 400;
     font-style: normal;
@@ -307,20 +307,27 @@ input {
 
     color: #25562a;
 
+    h2 {
+        margin: 0;
+        margin-bottom: 1rem;
+    }
+
+    .color-options {
+        padding: 0 1rem;
+        padding-top: 1rem;
+
+        .color-swatches {
+            display: flex;
+            gap: 1rem;
+        }
+    }
+
     & .card-content {
         & > * {
-            min-width: calc((var(--content-width) - 2rem) / 3);
+            min-width: calc((var(--content-width) - 2rem) / 2);
             display: flex;
             flex-direction: column;
             gap: .5rem;
-        }
-
-        .color-options .color-swatches {
-            display: grid;
-            grid-template-columns: repeat(4, min-content);
-            column-gap: 1rem;
-            row-gap: 1rem;
-            padding-left: 1rem;
         }
 
         .date-container {
