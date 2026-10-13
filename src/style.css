@@ -6,6 +6,32 @@
 body {
     margin: 0;
     padding: 0;
+
+
+    --base-font-size: 1.1rem;
+    font-size: var(--base-font-size);
+
+    --interact-h: 132;
+    --interact-bg: hsl(var(--interact-h), 81%, 69%);
+    --interact-fg: #181713;
+    --interact-sh: hsl(var(--interact-h), 36%, 47%);
+
+    --interact-focus-color: #0080ff;
+    --interact-focus-width: 2px;
+    --interact-focus-offset: 3px;
+
+    --interact-corner-shape: squircle;
+    --interact-border-color: rgba(0, 0, 0, 0.2);
+    --interact-border-width: 3px;
+    --interact-border-radius: 8px;
+
+    --interact-height: 4px;
+    --interact-hover-height: calc(var(--interact-height) / 2);
+    --interact-active-height: 1px;
+
+    --interact-shadow-color: rgba(0, 0, 0, 0.18);
+    --interact-shadow-hover-color: rgba(0, 0, 0, 0.16);
+    --interact-shadow-active-color: rgba(0, 0, 0, 0.14);
 }
 
 #generator.is-hidden,
@@ -13,92 +39,140 @@ body {
     display: none;
 }
 
-button {
-    --button-bg-h: 105;
-    --button-bg-s: 100%;
-    --button-bg-l: 95%;
-    --button-bg-a: 1;
-    --button-border-h: 152;
-    --button-border-s: 70%;
-    --button-border-l: 27%;
-    --button-border-a: 1;
-
-    --button-background-color: hsla(var(--button-bg-h), var(--button-bg-s), var(--button-bg-l), var(--button-bg-a));
-    --button-border-color: hsla(var(--button-border-h), var(--button-border-s), var(--button-border-l), var(--button-border-a));
-
+.btn {
     font-family: 'Itim', cursive;
     font-weight: 400;
     font-style: normal;
+    font-size: var(--base-font-size);
 
-    background-color: var(--button-background-color);
-    border: 1px solid var(--button-border-color);
-    border-radius: 4px;
-    box-shadow: 0 1.5px var(--button-border-color);
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
     padding: .25rem .5rem;
+    vertical-align: middle;
+    touch-action: manipulation;
+    user-select: none;
+    letter-spacing: 0.00em;
+    white-space: nowrap;
+    text-decoration: none;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 
-    transition: box-shadow 50ms ease-in-out,
-        background-color 50ms ease-in-out;
+    background: var(--interact-bg);
+    color: var(--interact-fg);
+    border: var(--interact-border-width) solid var(--interact-border-color);
+    border-radius: var(--interact-border-radius, 4px);
+    corner-shape: var(--interact-corner-shape);
 
-    &:active {
-        box-shadow: none;
-    }
+    box-shadow: 0px var(--interact-height) 0 var(--interact-sh), 0px calc(2 * var(--interact-height) - 1px) calc(2 * var(--interact-height) + 2px) var(--interact-shadow-color);
+    transition: transform 0.18s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.18s cubic-bezier(0.2, 0.7, 0.3, 1);
 
     &:hover {
-        --button-bg-l: 85%;
-        --button-bg-s: 60%;
+        transform: translateY(calc(var(--interact-height) - var(--interact-hover-height)));
+        box-shadow: 0 var(--interact-hover-height) 0 var(--interact-sh), 0 calc(var(--interact-hover-height) + 2px) calc(var(--interact-hover-height) + 4px) var(--interact-shadow-hover-color);
     }
 
-    &.has-icon {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
+    &:active {
+        transform: translateY(var(--interact-height));
+        box-shadow: 0 var(--interact-active-height) 0 var(--interact-sh), 0 calc(var(--interact-active-height) * 2) calc(var(--interact-height) - 1px) var(--interact-shadow-active-color);
+    }
 
-        & img {
-            width: 1rem;
-            height: 1rem
+    &:focus-visible {
+        outline: var(--interact-focus-width) solid #0080ff;
+        outline-offset: var(--interact-focus-offset);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+        filter: grayscale(0.5);
+
+        &:hover,
+        &:active {
+            transform: none;
+            box-shadow: 0px var(--interact-height) 0 var(--interact-sh), 0px calc(2 * var(--interact-height) - 1px) calc(2 * var(--interact-height) + 2px) var(--interact-shadow-color);
+        }
+    }
+
+    & > svg,
+    & > img {
+        display: block;
+        flex: 0 0 auto;
+        width: var(--btn-icon-size, 1em);
+        height: var(--btn-icon-size, 1em);
+    }
+
+    & > img {
+        object-fit: contain;
+    }
+}
+
+.btn-group {
+    display: flex;
+    width: fit-content;
+    border-radius: var(--interact-border-radius);
+    box-shadow: 0px calc(2 * var(--interact-height) - 1px) calc(2 * var(--interact-height) + 2px) var(--interact-shadow-color);
+
+    & .btn {
+        box-shadow: 0px var(--interact-height) 0 var(--interact-sh);
+
+        &:hover {
+            box-shadow: 0px var(--interact-hover-height) 0 var(--interact-sh);
         }
 
-        &:disabled {
-            cursor: not-allowed;
-            opacity: 0.5;
-
-            & img {
-                opacity: 0.5;
-            }
+        &:active {
+            box-shadow: 0px var(--interact-active-height) 0 var(--interact-sh);
         }
+
+        &[selected] {
+            box-shadow: 0px var(--interact-hover-height) 0 var(--interact-sh);
+            transform: translateY(var(--interact-hover-height));
+        }
+    }
+
+    & .btn:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right-width: calc(var(--interact-border-width) / 2);
+
+    }
+
+    & .btn:last-child {
+        border-left-width: calc(var(--interact-border-width) / 2);
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 }
 
 input {
-
-    --input-bg-h: 0;
-    --input-bg-s: 0%;
-    --input-bg-l: 100%;
-    --input-bg-a: 1;
-    --input-border-h: 152;
-    --input-border-s: 70%;
-    --input-border-l: 27%;
-    --input-border-a: 1;
-
-    --input-background-color: hsla(var(--input-bg-h), var(--input-bg-s), var(--input-bg-l), var(--input-bg-a));
-    --input-border-color: hsla(var(--input-border-h), var(--input-border-s), var(--input-border-l), var(--input-border-a));
-
     font-family: 'Itim', cursive;
     font-weight: 400;
     font-style: normal;
 
-    background-color: var(--input-background-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 4px;
-    box-shadow: 0 1.5px var(--input-border-color);
-    transition: box-shadow 50ms ease-in-out;
-    padding: 2px;
+    --interact-height: 2px;
+    --interact-bg: hsl(var(--interact-h), 40%, 95%);
+    --interact-sh: hsl(var(--interact-h), 10%, 47%);
 
-    &:hover {
-        --input-bg-l: 95%;
+    background-color: var(--interact-bg);
+    color: var(--interact-fg);
+    border: var(--interact-border-width) solid var(--interact-border-color);
+    border-radius: var(--interact-border-radius, 4px);
+    corner-shape: var(--interact-corner-shape);
 
-        box-shadow: 1px 3px var(--input-border-color);
+
+    box-shadow: 0px var(--interact-height) 0 var(--interact-sh), 0px calc(2 * var(--interact-height) - 1px) calc(2 * var(--interact-height) + 2px) var(--interact-shadow-color);
+    transition: transform 0.18s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.18s cubic-bezier(0.2, 0.7, 0.3, 1);
+
+    &:hover,
+    &:focus {
+        --interact-hover-height: calc(var(--interact-height) * 1.5);
+        background-color: hsl(var(--interact-h), 84%, 90%);
+        box-shadow: 0px var(--interact-hover-height) 0 var(--interact-sh), 0px calc(2 * var(--interact-hover-height) - 1px) calc(2 * var(--interact-hover-height) + 2px) var(--interact-shadow-color);
+        transform: translateY(calc(var(--interact-height) - var(--interact-hover-height)));
     }
 
     &:focus-visible {
@@ -122,18 +196,84 @@ input {
     }
 }
 
+.switch {
+    --off-bg: hsl(var(--interact-h), 40%, 40%);
+    --on-bg: hsl(var(--interact-h), 81%, 69%);
+    --interact-height: 2px;
+    --width: 35px;
+    --height: .9rem;
+    --padding: 2px;
+
+    background-color: var(--off-bg);
+    cursor: pointer;
+    border: var(--interact-border-width) solid var(--interact-border-color);
+    box-shadow: 0px var(--interact-height) 0 var(--interact-sh), 0px calc(2 * var(--interact-height) - 1px) calc(2 * var(--interact-height) + 2px) var(--interact-shadow-color);
+    border-radius: var(--height);
+    display: inline-block;
+    height: var(--height);
+    width: var(--width);
+    position: relative;
+    transition: transform 0.18s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.18s cubic-bezier(0.2, 0.7, 0.3, 1), background-color 0.18s cubic-bezier(0.2, 0.7, 0.3, 1);
+    margin: 2px;
+
+    &:has(> input[type="checkbox"]:checked) {
+        background-color: var(--on-bg);
+
+        & .slider {
+            transform: translateX(calc(var(--width) - 2* var(--padding) - var(--slider-size)));
+            background-color: var(--off-bg);
+        }
+    }
+
+    & input[type="checkbox"] {
+        display: none;
+    }
+
+    & .slider {
+        --slider-size: calc(var(--height) - 2 * var(--padding));
+        width: var(--slider-size);
+        height: var(--slider-size);
+        position: absolute;
+
+        top: calc(50% - var(--slider-size) / 2);
+        left: var(--padding);
+
+        border: inset 1px solid var(--interact-border-color);
+        background-color: var(--on-bg);
+        border-radius: 50%;
+        transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+    &:hover,
+    &:focus {
+        --interact-hover-height: calc(var(--interact-height) * 1.5);
+        box-shadow: 0px var(--interact-hover-height) 0 var(--interact-sh), 0px calc(2 * var(--interact-hover-height) - 1px) calc(2 * var(--interact-hover-height) + 2px) var(--interact-shadow-color);
+        transform: translateY(calc(var(--interact-height) - var(--interact-hover-height)));
+    }
+}
+
 .card {
-    border: 1px solid #595959;
-    box-shadow: 1px 2px #595959;
-    border-radius: 8px;
-    background-color: #ffffff;
-    padding: 1rem;
+    --card-bg: #ddedf1;
+    --card-fg: #181713;
+    --card-sh: #7b7b7b;
+
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50px;
+    corner-shape: squircle;
+    background: var(--card-bg);
+    color: var(--card-fg);
+    box-shadow: -1px 2px 0 var(--card-sh), -1px 7px 10px rgba(0, 0, 0, 0.22);
     width: 100%;
     max-width: var(--content-width);
 
+    .card-content {
+        padding: 1rem;
+        display: flex;
+    }
+
     hr {
-        --hr-height: 1.5px;
-        border: calc(var(--hr-height) / 2) dashed #105434;
+        --hr-height: 2px;
+        border: calc(var(--hr-height) / 2) dashed rgba(0, 0, 0, 0.22);
         border-radius: 4px;
         padding: 0;
         margin: 1rem 0;
@@ -143,37 +283,7 @@ input {
         display: flex;
         justify-content: end;
         gap: 1rem;
-    }
-
-    .toggle-wrapper {
-        display: flex;
-
-        & button {
-            width: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &:active {
-                box-shadow: 0 1.5px var(--button-border-color);
-            }
-
-            &[selected] {
-                --button-bg-l: 85%;
-                --button-bg-s: 40%;
-            }
-        }
-
-        & button:first-child {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-right: none;
-        }
-
-        & button:last-child {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
+        padding: 0 1.5rem 1rem 1rem;
     }
 }
 
@@ -181,22 +291,43 @@ input {
 */
 
 #generator {
-    --content-width: 600px;
+    --content-width: 800px;
     font-family: 'Itim', cursive;
     font-weight: 400;
     font-style: normal;
 
-    width: 100dvw;
-    height: 100dvh;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding-top: 5rem;
     background: linear-gradient(180deg, #cfcfb57d, #4ba55d4b),
         linear-gradient(66deg, #2a89e97c, #b7666661);
 
     color: #25562a;
+
+    & .card-content {
+        & > * {
+            min-width: calc((var(--content-width) - 2rem) / 3);
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+        }
+
+        .color-options .color-swatches {
+            display: grid;
+            grid-template-columns: repeat(4, min-content);
+            column-gap: 1rem;
+            row-gap: 1rem;
+            padding-left: 1rem;
+        }
+
+        .date-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 
     &::after {
         content: "";
@@ -213,6 +344,9 @@ input {
     }
 
     & .title {
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+        margin-left: 4rem;
         width: 100%;
         max-width: var(--content-width);
 

@@ -14,10 +14,12 @@
             <h1>Printable Calendar</h1>
         </div>
         <div class="card">
-            <h2>Color Options</h2>
-            <div>
-                <input type="color" id="color-0" value="#5A2328"/>
-                <input type="color" id="color-1" value="#ADF7B6"/>
+            <div class="card-content">
+            <div class="color-options">
+                <h2>Color Options</h2>
+                <div class="color-swatches">
+                    <input type="color" id="color-0" value="#5A2328"/>
+                    <input type="color" id="color-1" value="#ADF7B6"/>
                 <input type="color" id="color-2" value="#50808E"/>
                 <input type="color" id="color-3" value="#FFEE93"/>
                 <input type="color" id="color-4" value="#FF88DC"/>
@@ -28,51 +30,58 @@
                 <input type="color" id="color-9" value="#AB87FF"/>
                 <input type="color" id="color-10" value="#ef3f3f"/>
                 <input type="color" id="color-11" value="#048A81 "/>
+                </div>
             </div>
+        <div>
             <h2>Layout Options</h2>
             <div>
                 <input type="number" id="cells-per-day" min="1" max="50" value="5"/>
                 <label for="cells-per-day">Cells per day</label>
             </div>
-            <br/>
             <div>
                 <input type="number" id="columns" min="1" max="10" value="3"/>
                 <label for="columns">Columns</label>
             </div>
-            <br/>
             <div>
                 <input type="number" id="rows" min="1" max="10" value="1"/>
                 <label for="rows">Rows</label>
             </div>
-            <br/>
             <label for="orientation">Orientation:</label>
-            <div class="toggle-wrapper" role="group" aria-label="Orientation">
-                <button id="horizontal-toggle" selected>Horizontal</button>
-                <button id="vertical-toggle" >Vertical</button>
+            <div class="btn-group" role="group" aria-label="Orientation">
+                <button id="horizontal-toggle" class="btn">Horizontal</button>
+                <button id="vertical-toggle" class="btn">Vertical</button>
             </div>
-            <h2>Content Options</h2>
+        </div>
             <div>
-                <label for="start-date">Start Date:</label>
-                <input type="date" id="start-date"/>
-                <label for="end-date">End Date: </label>
-                <input type="date" id="end-date"/>
-            </div>
+                <h2>Content Options</h2>
+                <div class="date-container">
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date"/>
+                </div>
+                <div class="date-container">
+                    <label for="end-date">End Date: </label>
+                    <input type="date" id="end-date"/>
+                </div>
             <br/>
             <div>
-                <label for="show-cw">
+                <label for="show-cw" class="switch">
                     <input type="checkbox" id="show-cw"/>
-                    Show calendar weeks
+                    <span class="slider"></span>
                 </label>
+                Show calendar weeks
             </div>
             <div>
-                <label for="color-weekends">
+                <label for="color-weekends" class="switch">
                     <input type="checkbox" id="color-weekends"/>
-                    Color weekends
+                    <span class="slider"></span>
                 </label>
+                Color weekends
             </div>
-            <hr>
-            <div class="button-bar">
-                <button id="generate" class="has-icon" disabled>
+        </div>
+    </div>
+        <hr>
+        <div class="button-bar">
+                <button id="generate" class="btn" disabled>
                     <img src="./pencil-sparkles.svg" alt="pencil"/>
                     Generate ...
                 </button>
@@ -80,7 +89,7 @@
         </div>
     </section>
     <section id="calendar-display" class="tool-section is-hidden">
-        <button id="hide-calendar" class="has-icon">
+        <button id="hide-calendar" class="has-icon btn interact">
             Hide Calendar
         </button>
     </section>
