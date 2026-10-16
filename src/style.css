@@ -2,10 +2,17 @@
 
 /* MARK: General
 */
+body,
+article {
+    width: 100vw;
+    height: 100vh;
+}
+
 
 body {
     margin: 0;
     padding: 0;
+    position: relative;
 
     --base-font-size: 1.09rem;
     font-size: var(--base-font-size);
@@ -34,6 +41,7 @@ body {
 }
 
 #generator.is-hidden,
+#hide-calendar.is-hidden,
 #calendar-display.is-hidden {
     display: none;
 }
@@ -276,8 +284,6 @@ input {
     font-weight: 400;
     font-style: normal;
 
-    width: 100vw;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -378,14 +384,60 @@ input {
         padding: 0;
         margin: 1rem 0;
     }
-
-
 }
 
 /* MARK: Calendar
 */
 
 #calendar-display {
-    height: 210mm;
-    width: 297mm;
+    display: flex;
+    flex-direction: column;
+
+    & .page {
+        height: 210mm;
+        width: 297mm;
+        border: 1px solid black;
+        border-top: none;
+        display: flex;
+    }
+
+    & .month-container {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid black;
+
+        &:last-child {
+            border-right: none;
+        }
+
+        & .month-title {
+            padding: 1rem;
+            border-bottom: 1px solid black;
+
+
+            & .month-title-inner {
+                font-family: 'Itim', cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+        }
+
+        & .day-container {
+            height: calc(100% / 31);
+            display: flex;
+
+            border-bottom: 1px solid black;
+        }
+
+        & .month-footer {
+            width: 100%;
+            height: 1rem;
+        }
+    }
+}
+
+#hide-calendar {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 }

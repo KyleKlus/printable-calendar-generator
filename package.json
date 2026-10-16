@@ -42,5 +42,9 @@
 		"webpack": "^5.111.1",
 		"webpack-cli": "^7.2.3",
 		"webpack-dev-server": "^6.0.0"
+	},
+	"dependencies": {
+		"@types/luxon": "^3.7.6",
+		"luxon": "^3.7.2"
 	}
 }
