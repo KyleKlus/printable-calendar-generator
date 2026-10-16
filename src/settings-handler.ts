@@ -124,9 +124,6 @@ export class CalendarSettingsHandler {
             if (horizontalToggle.getAttribute('selected') === null) {
                 horizontalToggle.setAttribute('selected', '');
                 verticalToggle.removeAttribute('selected');
-            } else {
-                horizontalToggle.removeAttribute('selected');
-                verticalToggle.setAttribute('selected', '');
             }
         });
 
@@ -134,9 +131,6 @@ export class CalendarSettingsHandler {
             if (verticalToggle.getAttribute('selected') === null) {
                 verticalToggle.setAttribute('selected', '');
                 horizontalToggle.removeAttribute('selected');
-            } else {
-                verticalToggle.removeAttribute('selected');
-                horizontalToggle.setAttribute('selected', '');
             }
         });
 

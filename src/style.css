@@ -126,6 +126,7 @@ body {
 
         &:active {
             box-shadow: 0px var(--interact-active-height) 0 var(--interact-sh);
+            transform: translateY(calc(var(--interact-active-height) + 2px));
         }
 
         &[selected] {
@@ -320,6 +321,10 @@ input {
             display: flex;
             gap: 1rem;
         }
+    }
+
+    & .btn-group .btn {
+        width: 100px;
     }
 
     & .card-content {
