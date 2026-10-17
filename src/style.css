@@ -428,7 +428,8 @@ input {
         & .day-container {
             --day-num-width: 2rem;
             --week-day-width: 6rem;
-            height: calc(100% / 31);
+            height: calc(100% / 32);
+            overflow: hidden;
             display: flex;
             flex-wrap: nowrap;
 
@@ -440,6 +441,7 @@ input {
 
                 display: flex;
                 justify-content: center;
+                align-items: center;
 
                 font-family: 'Itim', cursive;
                 font-weight: 400;
@@ -452,10 +454,14 @@ input {
 
             & .day-num {
                 width: var(--day-num-width);
+                justify-content: end;
+                padding-right: 3px;
             }
 
             & .week-day {
                 width: var(--week-day-width);
+                justify-content: start;
+                padding-left: 3px;
             }
 
             & .event-cell {

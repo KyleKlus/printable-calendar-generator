@@ -85,6 +85,8 @@ export class CalendarGenerator {
             monthTitleEl.appendChild(titleSpan);
             monthEl.appendChild(monthTitleEl);
 
+            this.buildDay(null, monthIndex, settings, monthEl);
+
             for (let i = 0; i < 31; i++) {
                 this.buildDay((currentDate.daysInMonth ?? 0) < i + 1 ? null : currentDate.plus({ days: i }), monthIndex, settings, monthEl);
             }
@@ -132,7 +134,7 @@ export class CalendarGenerator {
 
             if (date.isWeekend && settings.colorWeekends) {
                 // Color in weekends
-                dayEl.style.backgroundColor = settings.colors[monthIndex % 12];
+                dayEl.style.backgroundColor = settings.colors[monthIndex % 12] + "44";
             }
         }
 

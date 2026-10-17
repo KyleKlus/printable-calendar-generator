@@ -1,3 +1,5 @@
+import { settings } from "cluster";
+
 export interface CalendarSettings {
     colors: string[];
     cellsPerDay: number;
@@ -11,7 +13,7 @@ export interface CalendarSettings {
 
 const defaultCalendarSettings: CalendarSettings = {
     colors: [
-        '#5A2328',
+        '#00FFFF',
         '#ADF7B6',
         '#50808E',
         '#FFEE93',
@@ -60,6 +62,17 @@ export class CalendarSettingsHandler {
         const cellsPerDayInput = document.getElementById('cells-per-day') as HTMLInputElement;
         const horizontalToggle = document.getElementById('horizontal-toggle') as HTMLButtonElement;
         const verticalToggle = document.getElementById('vertical-toggle') as HTMLButtonElement;
+
+        for (let i = 0; i < 12; i++) {
+            const colorEl = document.getElementById("color-" + i) as HTMLInputElement;
+            const currentColor = colorEl.value;
+            this.calendarSettings.colors[i] = currentColor;
+
+            colorEl?.addEventListener("input", () => {
+                const color = colorEl.value;
+                this.calendarSettings.colors[i] = color;
+            });
+        }
 
         startDateInput.valueAsDate = this.calendarSettings.startDate;
         endDateInput.valueAsDate = this.calendarSettings.endDate;
