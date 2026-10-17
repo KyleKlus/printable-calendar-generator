@@ -390,13 +390,16 @@ input {
 */
 
 #calendar-display {
+    --border: 1px solid black;
     display: flex;
     flex-direction: column;
+
+    overflow: auto;
 
     & .page {
         height: 210mm;
         width: 297mm;
-        border: 1px solid black;
+        border: var(--border);
         border-top: none;
         display: flex;
     }
@@ -404,7 +407,7 @@ input {
     & .month-container {
         display: flex;
         flex-direction: column;
-        border-right: 1px solid black;
+        border-right: var(--border);
 
         &:last-child {
             border-right: none;
@@ -412,7 +415,7 @@ input {
 
         & .month-title {
             padding: 1rem;
-            border-bottom: 1px solid black;
+            border-bottom: var(--border);
 
 
             & .month-title-inner {
@@ -423,10 +426,41 @@ input {
         }
 
         & .day-container {
+            --day-num-width: 2rem;
+            --week-day-width: 6rem;
             height: calc(100% / 31);
             display: flex;
+            flex-wrap: nowrap;
 
-            border-bottom: 1px solid black;
+            border-bottom: var(--border);
+
+            & .day-cell {
+                height: 100%;
+                border-right: var(--border);
+
+                display: flex;
+                justify-content: center;
+
+                font-family: 'Itim', cursive;
+                font-weight: 400;
+                font-style: normal;
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+
+            & .day-num {
+                width: var(--day-num-width);
+            }
+
+            & .week-day {
+                width: var(--week-day-width);
+            }
+
+            & .event-cell {
+                flex-grow: 1;
+            }
         }
 
         & .month-footer {

@@ -71,8 +71,9 @@ export class CalendarGenerator {
 
             const monthEl = document.createElement("div") as HTMLDivElement;
             monthEl.classList.add("month-container");
-            monthEl.style.width = `calc(100% / ${settings.columns})`
+            monthEl.style.width = `calc(100% / ${settings.columns})`;
 
+            // Set up title
             const monthTitleEl = document.createElement("div");
             monthTitleEl.classList.add("month-title");
             monthTitleEl.style.backgroundColor = settings.colors[monthIndex % 12];
@@ -85,9 +86,10 @@ export class CalendarGenerator {
             monthEl.appendChild(monthTitleEl);
 
             for (let i = 0; i < 31; i++) {
-                this.buildDay((currentDate.daysInMonth ?? 0) < i + 1 ? null : currentDate.plus({ days: i }), monthEl);
+                this.buildDay((currentDate.daysInMonth ?? 0) < i + 1 ? null : currentDate.plus({ days: i }), monthIndex, settings, monthEl);
             }
 
+            // Set up footer
             const monthFooter = document.createElement("div");
             monthFooter.classList.add("month-footer");
             monthFooter.style.backgroundColor = settings.colors[monthIndex % 12];
@@ -109,9 +111,38 @@ export class CalendarGenerator {
         return newPage;
     }
 
-    private buildDay(date: DateTime | null, parent: HTMLElement) {
+    private buildDay(date: DateTime | null, monthIndex: number, settings: CalendarSettings, parent: HTMLElement) {
         const dayEl = document.createElement("div");
         dayEl.classList.add("day-container");
+
+        const dayNum = document.createElement("div");
+        dayNum.classList.add("day-cell");
+        dayNum.classList.add("day-num");
+        dayEl.appendChild(dayNum);
+
+        const weekDay = document.createElement("div");
+        weekDay.classList.add("day-cell");
+        weekDay.classList.add("week-day");
+        dayEl.appendChild(weekDay);
+
+        if (date !== null) {
+            // Insert current day and weekday if we have a date
+            dayNum.insertAdjacentText("afterbegin", date.day.toString());
+            weekDay.insertAdjacentText("afterbegin", date.weekdayLong ?? "");
+
+            if (date.isWeekend && settings.colorWeekends) {
+                // Color in weekends
+                dayEl.style.backgroundColor = settings.colors[monthIndex % 12];
+            }
+        }
+
+        for (let i = 0; i < settings.cellsPerDay; i++) {
+            // Add cells to enter events
+            const eventCell = document.createElement("div");
+            eventCell.classList.add("day-cell");
+            eventCell.classList.add("event-cell");
+            dayEl.appendChild(eventCell);
+        }
 
         parent.appendChild(dayEl);
     }
