@@ -102,7 +102,7 @@ export class CalendarGenerator {
             columnCnt++
             monthIndex++;
             currentDate = startDate.plus({ month: monthIndex });
-        } while (currentDate < endDate)
+        } while (currentDate <= endDate)
     }
 
     private appendPage(parent: HTMLElement): HTMLElement {
