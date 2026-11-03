@@ -29,6 +29,11 @@ export class CalendarGenerator {
             this.hide();
         });
 
+        const printCalendarBtn = document.getElementById('print-calendar') as HTMLButtonElement;
+        printCalendarBtn.addEventListener('click', () => {
+            window.print();
+        });
+
         const dateRange = this.getDateRange();
 
         if (dateRange === null) return;
