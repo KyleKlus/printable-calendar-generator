@@ -19,11 +19,13 @@ export class CalendarGenerator {
             calendarEl?.classList.remove('is-hidden');
         }
 
-        const hideCalendarButton = document.getElementById('hide-calendar') as HTMLButtonElement;
-        if (hideCalendarButton?.classList.contains('is-hidden')) {
-            hideCalendarButton?.classList.remove('is-hidden');
+        const hideCalendarBtnWrapper = document.getElementById('hide-calendar-wrapper') as HTMLDivElement;
+        if (hideCalendarBtnWrapper?.classList.contains('is-hidden')) {
+            hideCalendarBtnWrapper?.classList.remove('is-hidden');
         }
-        hideCalendarButton.addEventListener('click', () => {
+
+        const hideCalendarBtn = document.getElementById('hide-calendar') as HTMLButtonElement;
+        hideCalendarBtn.addEventListener('click', () => {
             this.hide();
         });
 
@@ -45,9 +47,9 @@ export class CalendarGenerator {
             calendarEl?.classList.add('is-hidden');
         }
 
-        const hideCalendarButton = document.getElementById('hide-calendar') as HTMLButtonElement;
-        if (!hideCalendarButton?.classList.contains('is-hidden')) {
-            hideCalendarButton?.classList.add('is-hidden');
+        const hideCalendarBtnWrapper = document.getElementById('hide-calendar-wrapper') as HTMLDivElement;
+        if (!hideCalendarBtnWrapper?.classList.contains('is-hidden')) {
+            hideCalendarBtnWrapper?.classList.add('is-hidden');
         }
     }
 
@@ -125,12 +127,13 @@ export class CalendarGenerator {
         const weekDay = document.createElement("div");
         weekDay.classList.add("day-cell");
         weekDay.classList.add("week-day");
+        weekDay.classList.add(settings.dayLabel);
         dayEl.appendChild(weekDay);
 
         if (date !== null) {
             // Insert current day and weekday if we have a date
             dayNum.insertAdjacentText("afterbegin", date.day.toString());
-            weekDay.insertAdjacentText("afterbegin", date.weekdayLong ?? "");
+            weekDay.insertAdjacentText("afterbegin", settings.dayLabel === "long" ? (date.weekdayLong ?? "") : (date.weekdayShort ?? ""));
 
             if (date.isWeekend && settings.colorWeekends) {
                 // Color in weekends

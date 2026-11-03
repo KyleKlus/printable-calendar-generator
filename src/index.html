@@ -42,14 +42,14 @@
                 <input type="number" id="columns" min="1" max="10" value="3"/>
                 <label for="columns">Columns</label>
             </div>
-            <div>
+            <!-- <div>
                 <input type="number" id="rows" min="1" max="10" value="1"/>
                 <label for="rows">Rows</label>
-            </div>
-            <label for="orientation">Orientation:</label>
-            <div class="btn-group" role="group" aria-label="Orientation">
-                <button id="horizontal-toggle" class="btn">Horizontal</button>
-                <button id="vertical-toggle" class="btn">Vertical</button>
+            </div> -->
+            <label for="Label">Day label:</label>
+            <div class="btn-group" role="group" aria-label="Label">
+                <button id="long-toggle" class="btn">Monday</button>
+                <button id="short-toggle" class="btn">Mon</button>
             </div>
         </div>
             <div>
@@ -91,9 +91,11 @@
     <article id="calendar-display" class="is-hidden">
         <section class="page"></section>
     </article>
-    <button id="hide-calendar" class="btn is-hidden">
-        <img src="./arrow-left.svg" alt="pencil"/>
-        Back
-    </button>
+    <div id="hide-calendar-wrapper" class="is-hidden">
+        <button id="hide-calendar" class="btn">
+            <img src="./arrow-left.svg" alt="pencil"/>
+            Back
+        </button>
+    </div>
 </body>
 </html>

@@ -9,6 +9,7 @@ export interface CalendarSettings {
     endDate: Date;
     showCW: boolean;
     colorWeekends: boolean;
+    dayLabel: "long" | "short"
 }
 
 const defaultCalendarSettings: CalendarSettings = {
@@ -32,7 +33,8 @@ const defaultCalendarSettings: CalendarSettings = {
     startDate: new Date(), // Today's date
     endDate: new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate()), // Next year's date
     showCW: true,
-    colorWeekends: true
+    colorWeekends: true,
+    dayLabel: "long"
 };
 
 
@@ -57,11 +59,11 @@ export class CalendarSettingsHandler {
         const endDateInput = document.getElementById('end-date') as HTMLInputElement;
         const showCWInput = document.getElementById('show-cw') as HTMLInputElement;
         const colorWeekendsInput = document.getElementById('color-weekends') as HTMLInputElement;
-        const rowsInput = document.getElementById('rows') as HTMLInputElement;
+        // const rowsInput = document.getElementById('rows') as HTMLInputElement;
         const columnsInput = document.getElementById('columns') as HTMLInputElement;
         const cellsPerDayInput = document.getElementById('cells-per-day') as HTMLInputElement;
-        const horizontalToggle = document.getElementById('horizontal-toggle') as HTMLButtonElement;
-        const verticalToggle = document.getElementById('vertical-toggle') as HTMLButtonElement;
+        const longToggle = document.getElementById('long-toggle') as HTMLButtonElement;
+        const shortToggle = document.getElementById('short-toggle') as HTMLButtonElement;
 
         for (let i = 0; i < 12; i++) {
             const colorEl = document.getElementById("color-" + i) as HTMLInputElement;
@@ -78,16 +80,16 @@ export class CalendarSettingsHandler {
         endDateInput.valueAsDate = this.calendarSettings.endDate;
         showCWInput.checked = this.calendarSettings.showCW;
         colorWeekendsInput.checked = this.calendarSettings.colorWeekends;
-        rowsInput.value = this.calendarSettings.rows.toString();
+        // rowsInput.value = this.calendarSettings.rows.toString();
         columnsInput.value = this.calendarSettings.columns.toString();
         cellsPerDayInput.value = this.calendarSettings.cellsPerDay.toString();
 
-        if (horizontalToggle.getAttribute('selected') === null) {
-            horizontalToggle.setAttribute('selected', '');
+        if (longToggle.getAttribute('selected') === null) {
+            longToggle.setAttribute('selected', '');
         }
 
-        if (verticalToggle.getAttribute('selected') !== null) {
-            verticalToggle.removeAttribute('selected');
+        if (shortToggle.getAttribute('selected') !== null) {
+            shortToggle.removeAttribute('selected');
         }
 
         generateButton.disabled = !this.validateSettings();
@@ -116,11 +118,12 @@ export class CalendarSettingsHandler {
 
         });
 
-        rowsInput.addEventListener('input', () => {
-            this.calendarSettings.rows = parseInt(rowsInput.value) || 1;
-            generateButton.disabled = !this.validateSettings();
+        // TODO: Implement properly
+        // rowsInput.addEventListener('input', () => {
+        //     this.calendarSettings.rows = parseInt(rowsInput.value) || 1;
+        //     generateButton.disabled = !this.validateSettings();
 
-        });
+        // });
 
         columnsInput.addEventListener('input', () => {
             this.calendarSettings.columns = parseInt(columnsInput.value) || 3;
@@ -133,17 +136,19 @@ export class CalendarSettingsHandler {
             generateButton.disabled = !this.validateSettings();
         });
 
-        horizontalToggle.addEventListener('click', () => {
-            if (horizontalToggle.getAttribute('selected') === null) {
-                horizontalToggle.setAttribute('selected', '');
-                verticalToggle.removeAttribute('selected');
+        longToggle.addEventListener('click', () => {
+            if (longToggle.getAttribute('selected') === null) {
+                longToggle.setAttribute('selected', '');
+                shortToggle.removeAttribute('selected');
+                this.calendarSettings.dayLabel = "long";
             }
         });
 
-        verticalToggle.addEventListener('click', () => {
-            if (verticalToggle.getAttribute('selected') === null) {
-                verticalToggle.setAttribute('selected', '');
-                horizontalToggle.removeAttribute('selected');
+        shortToggle.addEventListener('click', () => {
+            if (shortToggle.getAttribute('selected') === null) {
+                shortToggle.setAttribute('selected', '');
+                longToggle.removeAttribute('selected');
+                this.calendarSettings.dayLabel = "short";
             }
         });
 

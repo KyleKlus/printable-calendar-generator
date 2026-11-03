@@ -6,6 +6,77 @@ body,
 article {
     width: 100vw;
     height: 100vh;
+    position: relative;
+}
+
+@media print {
+    @page {
+        margin: 0;
+    }
+
+    #generator,
+    #hide-calendar {
+        display: none !important;
+    }
+
+    html,
+    body,
+    article {
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    #calendar-display {
+        display: block !important;
+        overflow: visible !important;
+        width: 100%;
+        height: auto;
+    }
+
+    #calendar-display > section.page {
+        display: flex !important;
+        position: relative;
+        box-sizing: border-box;
+
+        width: 100%;
+        height: 100vh;
+
+        overflow: hidden;
+
+        break-inside: avoid;
+        page-break-inside: avoid;
+
+        break-after: page;
+        page-break-after: always;
+
+        & .day-container {
+            min-height: unset;
+        }
+
+        /* & .month-container:not(:last-child) .month-title, */
+        & .month-container:not(:last-child) .month-footer {
+            border-right: var(--border);
+            border-left: none;
+        }
+    }
+
+    /* Horizontal layout */
+    #calendar-display > section.page.horizontal {
+        flex-direction: row;
+    }
+
+    /* Vertical layout */
+    #calendar-display > section.page.vertical {
+        flex-direction: column;
+    }
+
+    /* Prevent an additional page after the last section */
+    #calendar-display > section.page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
 }
 
 
@@ -41,7 +112,7 @@ body {
 }
 
 #generator.is-hidden,
-#hide-calendar.is-hidden,
+#hide-calendar-wrapper.is-hidden,
 #calendar-display.is-hidden {
     display: none;
 }
@@ -331,10 +402,8 @@ input {
         margin-bottom: 1rem;
     }
 
-
-
     & .btn-group .btn {
-        width: 100px;
+        width: 80px;
     }
 
     & .card {
@@ -397,9 +466,6 @@ input {
     overflow: auto;
 
     & .page {
-        height: 210mm;
-        width: 297mm;
-        border: var(--border);
         border-top: none;
         display: flex;
     }
@@ -407,6 +473,12 @@ input {
     & .month-container {
         display: flex;
         flex-direction: column;
+
+        flex: 1 1 0;
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+
         border-right: var(--border);
 
         &:last-child {
@@ -414,9 +486,9 @@ input {
         }
 
         & .month-title {
+            flex: 0 0 auto;
             padding: 1rem;
             border-bottom: var(--border);
-
 
             & .month-title-inner {
                 font-family: 'Itim', cursive;
@@ -426,9 +498,13 @@ input {
         }
 
         & .day-container {
-            --day-num-width: 2rem;
-            --week-day-width: 6rem;
-            height: calc(100% / 32);
+            --day-num-width: 2.2rem;
+            --week-day-width: 5.5rem;
+            --week-day-short-width: 2.3rem;
+
+            flex: 1 1 0;
+            min-height: 1.5rem;
+
             overflow: hidden;
             display: flex;
             flex-wrap: nowrap;
@@ -459,9 +535,16 @@ input {
             }
 
             & .week-day {
-                width: var(--week-day-width);
                 justify-content: start;
                 padding-left: 3px;
+
+                &.short {
+                    width: var(--week-day-short-width);
+                }
+
+                &.long {
+                    width: var(--week-day-width);
+                }
             }
 
             & .event-cell {
@@ -470,13 +553,14 @@ input {
         }
 
         & .month-footer {
+            flex: 0 0 1rem;
             width: 100%;
-            height: 1rem;
+            border-bottom: var(--border);
         }
     }
 }
 
-#hide-calendar {
+#hide-calendar-wrapper {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
