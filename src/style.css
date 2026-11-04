@@ -15,7 +15,7 @@ article {
     }
 
     #generator,
-    #hide-calendar {
+    #hide-calendar-wrapper {
         display: none !important;
     }
 
